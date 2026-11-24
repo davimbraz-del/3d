@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-24T19:00:00Z",
+  "title": "Design System: Ocupacional 3D",
+  "extensions": {
+    "colorMeta": {
+      "filament-navy": { "role": "primary", "displayName": "Filament Navy", "canonical": "#000065", "tonalRamp": ["#00002E", "#00003D", "#000065", "#1A1A80", "#3B3B78", "#8A8BC4", "#D2D3F2", "#F2F3FA"] },
+      "print-lime": { "role": "primary", "displayName": "Print Lime", "canonical": "#B0F73D", "tonalRamp": ["#3D5A0F", "#5E8A16", "#86C21F", "#9EE82E", "#B0F73D", "#C8FA78", "#DEFCAE", "#F2FEE0"] },
+      "plate-white": { "role": "neutral", "displayName": "Plate White", "canonical": "#FFFFFF" },
+      "muted-navy": { "role": "neutral", "displayName": "Muted Navy", "canonical": "#3B3B78" },
+      "plate-mist": { "role": "neutral", "displayName": "Plate Mist", "canonical": "#F2F3FA" },
+      "error-red": { "role": "error", "displayName": "Error Red", "canonical": "#B00020" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero headline only, stacked lines, key phrase on a lime band." },
+      "headline": { "displayName": "Headline", "purpose": "Section titles." },
+      "title": { "displayName": "Title", "purpose": "Product, step, course, FAQ titles." },
+      "body": { "displayName": "Body", "purpose": "All running text; Atkinson Hyperlegible for low-vision legibility." },
+      "label": { "displayName": "Label", "purpose": "Buttons, nav, field labels." }
+    },
+    "shadows": [
+      { "name": "float", "value": "0 0.375rem 1.25rem rgb(0 0 0 / 0.25)", "purpose": "Only on the floating WhatsApp button." }
+    ],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.23, 1, 0.32, 1)", "purpose": "Press feedback (120ms), menu underline (200ms), layer build (520ms, 32ms stagger)." }
+    ],
+    "breakpoints": [
+      { "name": "container-two-col", "value": "46rem" },
+      { "name": "container-hero-split", "value": "56rem" },
+      { "name": "container-wide", "value": "60rem" },
+      { "name": "nav-collapse", "value": "74rem" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main action (WhatsApp, quote). Lime with navy text and navy border.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">Fale pelo WhatsApp</a>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;min-height:3rem;padding:.7em 1.35em;background:#B0F73D;color:#000065;border:3px solid #000065;border-radius:2px;font:700 1.0625rem/1.2 Montserrat,system-ui,sans-serif;text-decoration:none;transition:background-color 160ms ease,transform 120ms cubic-bezier(.23,1,.32,1)}.ds-btn-primary:hover{background:#9EE82E}.ds-btn-primary:focus-visible{outline:4px solid #000065;outline-offset:3px}.ds-btn-primary:active{transform:scale(.97)}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Secondary action; outline in the current text color.",
+      "html": "<a class=\"ds-btn-secondary\" href=\"#\">Conheça os dispositivos</a>",
+      "css": ".ds-btn-secondary{display:inline-flex;align-items:center;min-height:3rem;padding:.7em 1.35em;background:transparent;color:#000065;border:3px solid currentColor;border-radius:2px;font:700 1.0625rem/1.2 Montserrat,system-ui,sans-serif;text-decoration:none}.ds-btn-secondary:hover{background:#000065;color:#fff}.ds-btn-secondary:focus-visible{outline:4px solid #000065;outline-offset:3px}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Visible label above, 2px navy border, 16px+ text.",
+      "html": "<label class=\"ds-label\" for=\"ds-n\">Seu nome <span>(obrigatório)</span></label><input class=\"ds-input\" id=\"ds-n\">",
+      "css": ".ds-label{display:block;font:700 1.0625rem Montserrat,system-ui,sans-serif;color:#000065;margin-bottom:.4rem}.ds-label span{font-weight:400;color:#3B3B78}.ds-input{width:100%;min-height:3rem;padding:.65rem .8rem;font-size:1.0625rem;border:2px solid #000065;border-radius:2px;color:#000065;background:#fff}.ds-input:focus-visible{outline:4px solid #000065;outline-offset:2px}"
+    },
+    {
+      "name": "Text Size Toolbar",
+      "kind": "custom",
+      "description": "Sticky A− / A / A+ control with live level and contrast toggle.",
+      "html": "<div class=\"ds-toolbar\"><button aria-label=\"Diminuir tamanho do texto\">A−</button><button aria-label=\"Tamanho padrão\" aria-pressed=\"true\">A</button><button aria-label=\"Aumentar tamanho do texto\">A+</button><span>100%</span></div>",
+      "css": ".ds-toolbar{display:flex;gap:6px;align-items:center;background:#000065;color:#fff;padding:6px 16px;font:800 16px Montserrat,system-ui,sans-serif}.ds-toolbar button{min-width:44px;min-height:44px;border:2px solid rgba(255,255,255,.55);background:transparent;color:#fff;border-radius:2px;font:inherit;cursor:pointer}.ds-toolbar button[aria-pressed=true]{background:#B0F73D;color:#000065;border-color:#B0F73D}.ds-toolbar button:focus-visible{outline:4px solid #B0F73D;outline-offset:3px}"
+    },
+    {
+      "name": "Navy Stratum",
+      "kind": "card",
+      "description": "Full-width navy band with layer lines; white text, lime accents.",
+      "html": "<section class=\"ds-band\"><h2>Como funciona</h2><p>Cinco etapas, do primeiro contato ao acompanhamento.</p></section>",
+      "css": ".ds-band{background:#000065 repeating-linear-gradient(to bottom,transparent 0 .45rem,rgba(255,255,255,.07) .45rem .5rem);color:#fff;padding:2rem}.ds-band h2{font:800 2rem/1.15 Montserrat,system-ui,sans-serif;margin:0 0 .75rem}.ds-band p{color:#D2D3F2;font:400 1.125rem/1.6 'Atkinson Hyperlegible',system-ui,sans-serif;margin:0}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Camada por camada",
+    "overview": "The site is built the way the devices are made: in layers, to measure. A white build plate carries full-width navy strata, each striped with fine horizontal layer lines, like a part seen from the side while it prints. Lime is the layer printing right now: it marks the one thing to read or do in each region, and never more than that.",
+    "keyCharacteristics": [
+      "White ground, navy strata with layer lines, lime as the single \"active\" accent.",
+      "Montserrat 800 for headings set in stacked lines; Atkinson Hyperlegible for every sentence.",
+      "3px rules and 2px corners; no cards with drop shadows.",
+      "The signature: a device that builds itself layer by layer on load, and a step ruler that fills as you scroll."
+    ],
+    "rules": [
+      { "name": "The Navy-On-Lime Rule", "body": "Text on lime is navy (or black in high contrast). White on lime is 1.29:1 and is never used.", "section": "colors" },
+      { "name": "The One Active Layer Rule", "body": "Lime marks one thing per region: the action or the phrase that matters.", "section": "colors" },
+      { "name": "The Bordered Lime Rule", "body": "Every lime control on a light ground carries a 3px navy border to stay visible as a component.", "section": "colors" },
+      { "name": "The Fits-At-150 Rule", "body": "Large titles use min(size, Ncqi) so they fit at 320px with text at 150%.", "section": "typography" },
+      { "name": "The No-Kicker Rule", "body": "No small label above a heading. Numbers appear only where sequence matters.", "section": "typography" },
+      { "name": "The Strata Rule", "body": "Separate regions with a change of band, not with shadows or boxes.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do put navy text on lime, always (13.7:1).",
+      "Do give every lime control on white a 3px navy border.",
+      "Do build sizes in rem and breakpoints in container queries, so the text-size control reflows the page.",
+      "Do keep every touch target at 44×44px or more.",
+      "Do use layer lines on navy bands and placeholders as the brand texture."
+    ],
+    "donts": [
+      "Don't use white text on lime (1.29:1).",
+      "Don't put a kicker or eyebrow label above a heading.",
+      "Don't use drop shadows to separate content; change the band.",
+      "Don't use lime for more than one element per region.",
+      "Don't show hover effects without the (hover: hover) and (pointer: fine) gate."
+    ]
+  }
+}

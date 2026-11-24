@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Teste de estresse (somente desenvolvimento)</title>
+  <style>
+    html, body { margin: 0; height: 100%; font-family: system-ui, sans-serif; background: #ddd; }
+    iframe { display: block; width: 100%; height: 100%; border: 0; background: #fff; }
+    .switch {
+      position: fixed; left: 50%; bottom: 12px; transform: translateX(-50%); z-index: 10;
+      display: flex; gap: 2px; padding: 3px; background: #e5e5e5; border-radius: 999px;
+      box-shadow: 0 1px 4px rgb(0 0 0 / .25); font-size: 13px;
+    }
+    .switch button { border: 0; background: transparent; padding: 8px 12px; border-radius: 999px; cursor: pointer; color: #333; font: inherit; }
+    .switch button[aria-pressed="true"] { background: #fff; color: #000; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <!-- Ferramenta de desenvolvimento: NÃO publique a pasta dev/.
+       Carrega o site real (../index.html) e troca o CONTEÚDO (os dados), não o código.
+       Estados: Demo / Pior caso / Vazio / Um / Muitos. Use ?data=worst etc. -->
+  <iframe id="site" src="../index.html" title="Site em teste"></iframe>
+  <div class="switch" role="group" aria-label="Conjunto de dados">
+    <button type="button" data-set="demo">Demo</button>
+    <button type="button" data-set="worst">Pior caso</button>
+    <button type="button" data-set="empty">Vazio</button>
+    <button type="button" data-set="one">Um</button>
+    <button type="button" data-set="many">Muitos</button>
+  </div>
+  <script>
+  (function () {
+    var frame = document.getElementById('site');
+    var params = new URLSearchParams(location.search);
+    var set = params.get('data') || 'demo';
+
+    var WORST = {
+      products: [
+        { title: 'Kit O3D Alimentação Independente — engrossadores, adaptadores e suportes',
+          desc: 'Conjunto com engrossadores de cabo para talheres, adaptador universal de mão, suporte para copo com alça dupla e prato com borda elevada. Cada peça pode ser ajustada depois da avaliação, para crianças, adultos e pessoas idosas com pouca força de preensão.',
+          ticks: ['Pessoas com artrite reumatoide, artrose ou pouca força de preensão nas mãos', 'Pós-AVC', 'Crianças com paralisia cerebral em fase de alimentação independente na escola', 'Famílias', 'Instituições de longa permanência para idosos (ILPI)', 'Clínicas'] },
+        { title: 'Órtese', desc: 'Sob medida.', ticks: ['Adultos'] }
+      ],
+      people: [
+        { name: 'Maria Clara de Albuquerque Cavalcanti Wanderley', role: 'Terapeuta ocupacional, especialista em reabilitação neurológica do adulto e docente universitária', bio: 'Formada pela Universidade Federal de Pernambuco (UFPE) em 2018. Especialista em reabilitação neurológica do adulto, docente e pesquisadora em tecnologia assistiva, com experiência em AVC, traumatismo cranioencefálico, lesão medular e doenças neurodegenerativas.' },
+        { name: 'Jo', role: 'TO', bio: 'UFPE.' }
+      ],
+      faq: [
+        'Meu filho tem paralisia cerebral e usa cadeira de rodas. Vocês conseguem adaptar um dispositivo para ele segurar a colher sozinho na escola?',
+        'Prazo?'
+      ],
+      courses: ['Trilha da Inovação: Tecnologia Assistiva e Impressão 3D na Prática Clínica da Terapia Ocupacional', 'Oficina'],
+      email: 'atendimento.ocupacional3d.recife.pernambuco@example.com',
+      testimonials: [
+        { text: 'Minha mãe voltou a comer sozinha depois do AVC. Parece pouca coisa, mas para nós foi tudo. A Roberta veio entender a rotina dela, ajustou o engrossador duas vezes até ficar bom e ainda ligou na semana seguinte para saber se estava funcionando. Hoje ela almoça com a família, no tempo dela, sem precisar de ajuda.', who: 'Aleksandra Wiśniewska-Kowalczyk, São José do Belmonte - PE (filha e cuidadora)' },
+        { text: 'Amei! 💚', who: 'Jo' },
+        { text: 'Uso o adaptador de escrita no consultório com vários pacientes.', who: 'Đặng Thị Ngọc Hân, terapeuta ocupacional' }
+      ],
+      form: { nome: 'Aleksandra Wiśniewska-Kowalczyk 💚', cidade: 'São José do Belmonte - PE, distrito de Carmo do Belmonte', mensagem: 'Olá! <b>Sou cuidadora</b> & preciso de ajuda.\nMinha mãe teve AVC em 2023.\n\n' + 'Ela tem pouca força na mão direita e não consegue segurar talheres, escova de dentes nem caneta. '.repeat(14) }
+    };
+
+    function apply(doc) {
+      var products = doc.querySelectorAll('.product');
+      var people = doc.querySelectorAll('.person');
+      var faqSpans = doc.querySelectorAll('.accordion__trigger > span');
+      var courses = doc.querySelectorAll('.course h3');
+      var productsWrap = doc.querySelector('.products');
+
+      if (set === 'worst') {
+        products.forEach(function (p, i) {
+          var d = WORST.products[i]; if (!d) return;
+          p.querySelector('.product__title').textContent = d.title;
+          p.querySelector('[itemprop=description]').textContent = d.desc;
+          var ul = p.querySelector('.ticks'); ul.innerHTML = '';
+          d.ticks.forEach(function (t) { var li = doc.createElement('li'); li.textContent = t; ul.appendChild(li); });
+        });
+        people.forEach(function (p, i) {
+          var d = WORST.people[i]; if (!d) return;
+          p.querySelector('.person__name').textContent = d.name;
+          p.querySelector('.person__role').textContent = d.role;
+          p.querySelector('p:not(.person__role)').textContent = d.bio;
+        });
+        faqSpans.forEach(function (s, i) { if (WORST.faq[i]) s.textContent = WORST.faq[i]; });
+        courses.forEach(function (h, i) { if (WORST.courses[i]) h.textContent = WORST.courses[i]; });
+        doc.querySelectorAll('.channel__value')[1].textContent = WORST.email;
+        doc.querySelectorAll('.site-footer__links a')[1].textContent = WORST.email;
+        var empty = doc.querySelector('.empty');
+        if (empty) {
+          var list = doc.createElement('div'); list.className = 'quotes';
+          WORST.testimonials.forEach(function (t) {
+            var f = doc.createElement('figure'); f.className = 'quote';
+            var bq = doc.createElement('blockquote'); var p = doc.createElement('p'); p.textContent = t.text; bq.appendChild(p);
+            var fc = doc.createElement('figcaption'); fc.textContent = t.who;
+            f.appendChild(bq); f.appendChild(fc); list.appendChild(f);
+          });
+          empty.replaceWith(list);
+        }
+        doc.getElementById('nome').value = WORST.form.nome;
+        doc.getElementById('cidade').value = WORST.form.cidade;
+        doc.getElementById('mensagem').value = WORST.form.mensagem.slice(0, 1500);
+        doc.getElementById('assunto').value = 'Parceria ou revenda';
+        // abre todas as perguntas para ver as respostas
+        doc.querySelectorAll('.accordion__trigger').forEach(function (b) { b.click(); });
+      } else if (set === 'empty') {
+        products.forEach(function (p) { p.remove(); });
+      } else if (set === 'one') {
+        products.forEach(function (p, i) { if (i > 0) p.remove(); });
+        people.forEach(function (p, i) { if (i > 0) p.remove(); });
+      } else if (set === 'many') {
+        for (var i = 0; i < 10; i++) productsWrap.appendChild(products[i % 2].cloneNode(true));
+      }
+    }
+
+    frame.addEventListener('load', function () { apply(frame.contentDocument); });
+    document.querySelectorAll('[data-set]').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.set === set));
+      b.addEventListener('click', function () {
+        params.set('data', b.dataset.set);
+        location.search = params.toString();
+      });
+    });
+  })();
+  </script>
+</body>
+</html>
